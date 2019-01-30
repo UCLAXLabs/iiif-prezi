@@ -8,20 +8,24 @@ import os
 
 # folder div for Cantaloupe server is | (urlencoded %7C)
 base_dir = "/usr/local/share/images/"
-# No trailing slash
-collection_id = "emel"
+collection_id = "uclaeal_wahon_B11_bib1563926" # No trailing slash
 images_subdir = ""
 if (images_subdir != ""):
   images_target = os.path.join(collection_id, images_subdir)
 else:
   images_target = collection_id
+
+#if (prefix_subpath != ""):
+#  images_target = os.path.join(prefix_subpath, images_target)
   
 folder_div = '%7C'
 #folder_div = '/'
+images_prepath = "wahon" # Need to add folder_div when used with Cantaloupe
 
-images_uri = "https://marinus.library.ucla.edu/cantaloupe-4.0.1/iiif/2/"
-manifest_uri = "https://marinus.library.ucla.edu/iiif/"
-image_dir = base_dir + images_target
+images_uri = "https://marinus.library.ucla.edu/cantaloupe-4.0.1/iiif/2/" + images_prepath + folder_div
+manifest_uri = "https://marinus.library.ucla.edu/iiif/" + images_prepath
+image_dir = os.path.join(base_dir, images_prepath, images_target)
+#image_dir = base_dir + images_prepath + images_target
 manifest_label = images_target.replace("/", "_")
 prezi_dir = "."
 
@@ -32,7 +36,7 @@ fac.set_base_image_uri(images_uri + images_target.replace("/", folder_div) + fol
 fac.set_base_image_dir(image_dir)
 fac.set_iiif_image_info()
 fac.set_base_prezi_uri(os.path.join(manifest_uri, collection_id))
-#fac.set_base_prezi_uri(manifest_uri)
+
 fac.set_base_prezi_dir(prezi_dir)
 
 mflbl = manifest_label.replace("_", " ").title()
